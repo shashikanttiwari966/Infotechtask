@@ -1,0 +1,5 @@
+<ul>
+<%comments.each do |comment|%>
+	<li><%= comment.comment%>, by: <i><%= comment.user.email%></i></li>
+<%end%>
+</ul>

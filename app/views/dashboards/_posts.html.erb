@@ -1,0 +1,23 @@
+<% posts.each do |post|%>
+<div class="row m-5">
+  <div class="leftcolumn p-2">
+    <div class="card p-5">
+			<h2><%= post.title%></h2>
+			<h5>Description, <%= post.created_at.strftime("%d %B %Y")%> </h5>
+			<p><%= post.description %></p>
+			<%if post.images.present?%>
+				<% post.images.each do |image|%>
+					<span><%= image_tag image, size: 100 %></span>
+				<%end%>
+			<%end%><br><br><hr>
+			<%= form_with url:comments_path,  method: :post do |f|%>
+				<%= f.hidden_field :post_id, value: post.id%>
+				Comment:<br> <%= f.text_area :comment %>
+				<%= f.submit "comment" %>
+			<%end%>
+			<%= render "comments", comments: post.comments if post.comments.present?%> 
+		</div>
+	</div>
+</div>
+<%end%>
+<%= will_paginate posts%>
